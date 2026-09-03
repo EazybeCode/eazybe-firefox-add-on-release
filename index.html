@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install Eazybe for Firefox</title>
+<meta name="description" content="Install the Eazybe add-on for Firefox — sync WhatsApp Web chats to your CRM automatically.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="icon128.png">
+<style>
+  :root {
+    --brand: #5956e9;
+    --brand-hi: #6f6cf2;
+    --brand-lo: #4744cf;
+    --bg: #f6f6fa;
+    --card: #ffffff;
+    --text: #14142b;
+    --muted: #63637e;
+    --faint: #8a8aa3;
+    --line: #e6e6f0;
+    --ring: rgba(89, 86, 233, .18);
+    --warn-bg: #fff7e8;
+    --warn-line: #f2dca8;
+    --warn-text: #6d4f05;
+    --ok: #0f9d58;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d0d14;
+      --card: #16161f;
+      --text: #ededf5;
+      --muted: #9797b0;
+      --faint: #6f6f88;
+      --line: #26263a;
+      --ring: rgba(89, 86, 233, .34);
+      --warn-bg: #2a2210;
+      --warn-line: #4a3d1c;
+      --warn-text: #f0d9a4;
+      --ok: #4ade80;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+
+  /* masthead */
+  .mast { display: flex; align-items: center; gap: .7rem; margin-bottom: 3rem; }
+  .mast img { width: 28px; height: 28px; border-radius: 7px; }
+  .mast b { font-size: .95rem; font-weight: 600; letter-spacing: -.01em; }
+
+  /* hero */
+  .hero { text-align: center; margin-bottom: 2rem; }
+  .app-icon {
+    width: 76px; height: 76px; border-radius: 18px; margin-bottom: 1.4rem;
+    box-shadow: 0 10px 30px -10px var(--ring), 0 0 0 1px var(--line);
+  }
+  h1 {
+    font-size: clamp(1.75rem, 5vw, 2.3rem); line-height: 1.15;
+    letter-spacing: -.03em; margin: 0 0 .75rem; font-weight: 700;
+  }
+  .lede { color: var(--muted); margin: 0 auto; max-width: 30rem; font-size: 1.03rem; }
+
+  /* notice */
+  #notice {
+    display: none; align-items: flex-start; gap: .6rem;
+    background: var(--warn-bg); border: 1px solid var(--warn-line);
+    color: var(--warn-text); border-radius: 11px;
+    padding: .85rem 1rem; font-size: .92rem; margin-top: 2rem; text-align: left;
+  }
+  #notice.show { display: flex; }
+  #notice svg { flex: none; margin-top: .18rem; }
+
+  /* install */
+  .install { margin-top: 2rem; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: .6rem;
+    background: linear-gradient(180deg, var(--brand-hi), var(--brand));
+    color: #fff; font-size: 1.05rem; font-weight: 600;
+    text-decoration: none; padding: 1rem 1.5rem; border-radius: 11px;
+    box-shadow: 0 1px 2px rgba(20, 20, 43, .16), 0 8px 22px -10px var(--ring);
+    transition: transform .12s ease, background .12s ease;
+  }
+  .btn:hover { background: linear-gradient(180deg, var(--brand), var(--brand-lo)); transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+  .btn[aria-disabled="true"] {
+    background: var(--line); color: var(--faint);
+    pointer-events: none; box-shadow: none; transform: none;
+  }
+  .facts {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: .35rem .8rem; margin-top: 1rem; font-size: .82rem; color: var(--faint);
+  }
+  .facts span { display: inline-flex; align-items: center; gap: .3rem; }
+  .facts .sep { color: var(--line); }
+
+  /* sections */
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 1.5rem 1.6rem; margin-top: 1.5rem;
+  }
+  h2 {
+    font-size: .74rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--faint); font-weight: 600; margin: 0 0 1.25rem;
+  }
+
+  .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 1.15rem 1.4rem; }
+  @media (max-width: 30rem) { .feat { grid-template-columns: 1fr; } }
+  .feat b { display: block; font-size: .93rem; font-weight: 600; margin-bottom: .15rem; }
+  .feat p { margin: 0; color: var(--muted); font-size: .87rem; line-height: 1.5; }
+
+  ol { list-style: none; counter-reset: s; margin: 0; padding: 0; }
+  ol li {
+    counter-increment: s; position: relative;
+    padding-left: 2.35rem; margin-bottom: 1.1rem; font-size: .95rem;
+  }
+  ol li:last-child { margin-bottom: 0; }
+  ol li::before {
+    content: counter(s); position: absolute; left: 0; top: 0;
+    width: 1.6rem; height: 1.6rem; border-radius: 50%;
+    background: var(--brand); color: #fff;
+    font-size: .8rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  ol li p { margin: .2rem 0 0; color: var(--muted); font-size: .87rem; }
+
+  details { border-top: 1px solid var(--line); margin-top: 1.4rem; padding-top: 1.2rem; }
+  summary {
+    cursor: pointer; font-size: .92rem; font-weight: 500;
+    list-style: none; display: flex; align-items: center; gap: .5rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; color: var(--faint); font-size: 1.1rem; line-height: 1; width: .8rem; }
+  details[open] summary::before { content: "\2212"; }
+  details p { font-size: .9rem; color: var(--muted); margin: .85rem 0 0; padding-left: 1.3rem; }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .87em; background: var(--bg); border: 1px solid var(--line);
+    border-radius: 5px; padding: .12em .42em;
+  }
+
+  footer {
+    text-align: center; font-size: .85rem; color: var(--faint);
+    margin-top: 2.5rem; line-height: 1.9;
+  }
+  a { color: var(--brand); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mast">
+    <img src="icon128.png" alt="">
+    <b>Eazybe</b>
+  </div>
+
+  <div class="hero">
+    <img class="app-icon" src="icon128.png" alt="Eazybe">
+    <h1>Eazybe for Firefox</h1>
+    <p class="lede">
+      Sync WhatsApp Web chats to your CRM automatically. AI summaries,
+      auto-logged conversations, two-way contact and deal sync — no copy-paste.
+    </p>
+
+    <div id="notice"></div>
+
+    <div class="install">
+      <a class="btn" id="install" href="eazybe-4.0.28.xpi">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/>
+        </svg>
+        Add to Firefox
+      </a>
+      <div class="facts">
+        <span>Version 4.0.28</span>
+        <span class="sep">&middot;</span>
+        <span>3.0 MB</span>
+        <span class="sep">&middot;</span>
+        <span>Firefox 140+</span>
+        <span class="sep">&middot;</span>
+        <span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ok)"
+               stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Signed by Mozilla
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>What you get</h2>
+    <div class="feat">
+      <div>
+        <b>CRM sync</b>
+        <p>HubSpot, Zoho, Salesforce, Bitrix24 and LeadSquared.</p>
+      </div>
+      <div>
+        <b>Auto-logged chats</b>
+        <p>Conversations attach to the matching contact or deal.</p>
+      </div>
+      <div>
+        <b>AI summaries</b>
+        <p>Recaps and suggested replies on any thread.</p>
+      </div>
+      <div>
+        <b>Labels &amp; scheduling</b>
+        <p>Notes, reminders, templates and scheduled messages.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Installing</h2>
+    <ol>
+      <li>
+        Choose <strong>Add to Firefox</strong> above.
+        <p>Firefox will ask you to review the permissions the add-on needs.</p>
+      </li>
+      <li>Confirm with <strong>Add</strong>.</li>
+      <li>
+        Open <a href="https://web.whatsapp.com">web.whatsapp.com</a>.
+        <p>The Eazybe sidebar appears beside your chats. Sign in with your Eazybe account to connect a CRM.</p>
+      </li>
+    </ol>
+
+    <details>
+      <summary>The file downloaded instead of installing</summary>
+      <p>
+        Open <code>about:addons</code>, click the gear icon at the top right, choose
+        <strong>Install Add-on From File</strong>, and pick the downloaded <code>.xpi</code>.
+      </p>
+    </details>
+
+    <details>
+      <summary>Why isn't this on addons.mozilla.org?</summary>
+      <p>
+        This build is distributed directly by Eazybe while the Firefox listing is being
+        prepared. It is signed by Mozilla, so it installs in Firefox exactly like an
+        add-on from the store.
+      </p>
+    </details>
+  </div>
+
+  <footer>
+    Questions? <a href="https://help.eazybe.com/">help.eazybe.com</a><br>
+    <a href="https://www.eazybe.com/">eazybe.com</a>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var notice = document.getElementById('notice');
+    var btn = document.getElementById('install');
+    var ua = navigator.userAgent;
+    var m = ua.match(/Firefox\/(\d+)/);
+    var isFirefox = !!m && ua.indexOf('Seamonkey') === -1;
+    var icon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      + ' stroke-width="2.2" stroke-linecap="round" aria-hidden="true">'
+      + '<circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>';
+
+    function warn(html) {
+      notice.innerHTML = icon + '<span>' + html + '</span>';
+      notice.className = 'show';
+      btn.setAttribute('aria-disabled', 'true');
+      btn.removeAttribute('href');
+    }
+
+    if (!isFirefox) {
+      warn('<strong>This add-on is for Firefox.</strong> Open this page in Firefox 140 or later to install it.');
+    } else if (parseInt(m[1], 10) < 140) {
+      warn('<strong>Firefox ' + m[1] + ' is too old.</strong> Eazybe needs Firefox 140 or later. Update Firefox, then reload this page.');
+    }
+  })();
+</script>
+
+</body>
+</html>
