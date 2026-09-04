@@ -1,11 +1,11 @@
 {
   "addons": {
-    "eazybe-fx@eazybe.com": {
+    "eazybe-fx2@eazybe.com": {
       "updates": [
         {
           "version": "4.0.28",
           "update_link": "https://eazybecode.github.io/eazybe-firefox-add-on-release/eazybe-4.0.28.xpi",
-          "update_hash": "sha256:30bd9ca0462ff6cc05ef013664791cdd81b089559338e8d088c7225957253c54"
+          "update_hash": "sha256:dcfe57a2718b64d934b14aaeffc5c5c37457fe6f1fa29af10810216546143cac"
         }
       ]
     }

@@ -25,7 +25,7 @@ real distribution and this repo is retired.
 
 ## Two things to know before sharing the link
 
-**The add-on id is `eazybe-fx@eazybe.com`, not the production `eazybe@eazybe.com`.**
+**The add-on id is `eazybe-fx2@eazybe.com`, not the production `eazybe@eazybe.com`.**
 A separate id keeps this channel from disturbing the pending AMO submission. The cost: to
 Firefox these are two different add-ons, so **anyone who installs from here must uninstall
 and reinstall from AMO** once the listing is live. Say so up front.
@@ -39,10 +39,15 @@ This build declares an `update_url` pointing at `updates.json` in this repo. Fir
 and installs newer versions on its own, the same as an add-on from AMO. Nobody needs to be
 emailed a link again.
 
-> An earlier build under the id `eazybe-direct@eazybe.com` was published briefly and had no
-> `update_url`, so it can never update itself. It has been removed. If anyone installed it,
-> they must uninstall it before installing this one — otherwise two Eazybe add-ons run
-> against WhatsApp Web at once.
+> Two earlier builds were published under different ids — `eazybe-direct@eazybe.com` (no
+> `update_url` at all) and `eazybe-fx@eazybe.com`. Neither is upgraded by this one, because
+> Firefox treats a different id as a different add-on. **Uninstall any earlier Eazybe build
+> before installing this one**, or two copies run against WhatsApp Web at once.
+>
+> The id changed because AMO refuses to sign a version string it has already accepted for an
+> id, and this release had to keep the literal version 4.0.28. From this build onward the
+> `update_url` above means that trade will not be needed again — future versions upgrade in
+> place.
 
 ## Publishing a new version
 
@@ -51,7 +56,7 @@ emailed a link again.
    version (which Chrome's listings share), set `EAZYBE_FIREFOX_VERSION` to a four-part
    version such as `4.0.28.1` instead.
 2. Rebuild and re-sign through the unlisted channel with
-   `EAZYBE_FIREFOX_EXTENSION_ID=eazybe-fx@eazybe.com` set.
+   `EAZYBE_FIREFOX_EXTENSION_ID=eazybe-fx2@eazybe.com` set.
 3. Add the new `.xpi` here **alongside** the old one. Don't overwrite — old builds are what
    you need when someone reports a bug on a version they installed last month.
 4. **Add an entry to `updates.json`.** This is the step that actually ships it. Miss it and
